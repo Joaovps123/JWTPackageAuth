@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\POC.Authentication.Application\POC.Authentication.Application.csproj" />
+    <ProjectReference Include="..\POC.Authentication.Domain\POC.Authentication.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
