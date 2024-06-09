@@ -6,6 +6,8 @@ using POC.Authentication.Application.Commands.LoginUser;
 using POC.Authentication.Application.Commands.RefreshToken;
 using POC.Authentication.Application.Commands.RegisterUser;
 using POC.Authentication.Application.DTOs;
+using POC.Authentication.Application.Queries.GetUserInfo;
+using System.Security.Claims;
 
 namespace POC.Authentication.API.Controllers
 {
@@ -68,10 +70,22 @@ namespace POC.Authentication.API.Controllers
         }
 
         [Authorize]
+        [HttpGet("user-info")]
+        [ProducesResponseType(typeof(UserInfoDto), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            var userInfo = await _mediator.Send(new GetUserInfoQuery(long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))));
+            if (userInfo != null)
+                return Ok(userInfo);
+            return NotFound();
+        }
+
+        [Authorize]
         [HttpGet("test")]
         public async Task<IActionResult> Test()
         {
-                return Ok("Ok");
+            return Ok("Ok");
         }
     }
 }
